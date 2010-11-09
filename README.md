@@ -14,7 +14,6 @@ You can find your Partner and Secret codes under the Developers area of the Back
 
 ### In your Gemfile:
 from rubygems:
-
     gem "ooyala_fb"
 or from the git repo:
 
@@ -23,9 +22,9 @@ or from the git repo:
 
 ## Usage:
     require "ooyala_fb"
-    fbs = OoyalaFb.new partner_code: 'lxN2o63vhDmltiPGrrBoRLs6Mdpe', secret_code: 'bhBuI1mEzvu4MgSpuJvZdl1oiXZNrCGJ69CYiuMU' 
+    fbs = OoyalaFb.new partner_code: 'partner_code', secret_code: 'secret_code' 
     
-    puts fbs.header 'libjV0MTomg4gFR1h9S2zONQdqRXiZUu'
+    puts fbs.header 'movie_embed'
   
   
 
