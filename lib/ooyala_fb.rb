@@ -27,19 +27,25 @@ class OoyalaFb
   
   FACEBOOK_MAX_WIDTH = 420
 
-  def initialize (partner_code, secret_code)
-    @partner_code = partner_code
-    @secret_code  = secret_code
-
+  def initialize (options = {})
+    @partner_code = options[:partner_code]
+    @secret_code  = options[:secret_code]
+    @log = options[:log]
+    @log_path = options[:log_path]
+    
     # Create a logger which ages logfile once it reaches
     # a certain size. Leave 10 "old log files" and each file is about 1,024,000 bytes.
-    $LOG = Logger.new('ooyala_fb.log', 10, 1024000)
+    # log disabled by default
+    
+    if @log
+      log_path = options[:log_path] || 'ooyala_fb.log' 
+      $LOG = Logger.new(log_path, 10, 1024000)
 
-    # Set the default logging level to INFO. So it will print messages
-    # about missing attribute values in the FacebookSharing.log file.
-    # Change this to Logger:ERROR if the messages should not be logged.
-    $LOG.sev_threshold = Logger::INFO
-
+      # Set the default logging level to INFO. So it will print messages
+      # about missing attribute values in the FacebookSharing.log file.
+      # Change this to Logger:ERROR if the messages should not be logged.
+      $LOG.sev_threshold = Logger::INFO 
+    end
   end
  
   # Returns the string containing meta tags required by videos being uploaded to facebook
@@ -93,8 +99,8 @@ embedCode=#{metadata['embedCode']}&keepEmbedCode=true" />
 
     node_value = doc.get_elements("list/item/#{node_name}")[0].get_text().value rescue nil
   
-    if @node_value == nil
-      $LOG.info("Value not found for: #{node_name}, embed_code:  #{embed_code}")
+    if @log && @node_value == nil
+      $LOG.info("Value not found for: #{node_name}, embed_code:  #{embed_code}") 
     end
 
     return node_value
