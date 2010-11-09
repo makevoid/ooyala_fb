@@ -1,6 +1,6 @@
 # Ooyala Fb
 
-## easilly enable Ooyala Facebook sharing
+## easilly enables meta tag creation on your ruby/rails/rack app for Ooyala Facebook sharing
 
 this is the code found on: http://www.ooyala.com/support/docs/facebook_sharing_sdk
 repackaged as a gem 
